@@ -1,0 +1,19 @@
+zera A 2 2
+zera B 2 2
+imprime A
+imprime B
+define_elemento A [ 1 ] [ 1 ] = 100
+imprime A
+imprime B
+define_elemento B [ 0 ] [ 1 ] = 200
+imprime B
+imprime A
+define_elemento A [ 1 ] [ 0 ] = 300
+imprime A
+imprime B
+define_elemento B [ 0 ] [ 0 ] = 400
+imprime A
+imprime B
+define_elemento A [ 1 ] [ 0 ] = 500
+imprime A
+imprime B

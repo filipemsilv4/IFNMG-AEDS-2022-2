@@ -1,0 +1,30 @@
+Inicializada tabela para ate 20 elementos.
+Inserido elemento 1 na posicao 1.
+Inserido elemento 2 na posicao 2.
+Inserido elemento 3 na posicao 3.
+Inserido elemento 102 na posicao 38.
+Inserido elemento 40 na posicao 40.
+Inserido elemento 50 na posicao 50.
+Inserido elemento 350 na posicao 86.
+Inserido elemento 150 na posicao 60.
+Inserido elemento 250 na posicao 72.
+Inserido elemento 22 na posicao 22.
+Inserido elemento 86 na posicao 96.
+Inserido elemento 96 na posicao 32.
+Elemento 100 nao encontrado.
+Elemento 150 encontrado na posicao 60.
+Elemento 250 encontrado na posicao 72.
+Elemento 102 encontrado na posicao 38.
+Elemento 40 encontrado na posicao 40.
+Elemento 1 encontrado na posicao 1.
+Elemento 140 nao encontrado.
+Elemento 550 nao encontrado.
+Elemento 350 removido da posicao 86.
+Elemento 350 nao encontrado.
+Elemento 86 encontrado na posicao 96.
+Elemento 96 encontrado na posicao 32.
+Elemento 86 removido da posicao 96.
+Elemento 96 encontrado na posicao 32.
+Elemento 22 encontrado na posicao 22.
+Elemento 350 nao encontrado.
+Elemento 86 nao encontrado.

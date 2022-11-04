@@ -1,0 +1,21 @@
+zera A 100 100
+define_elemento A [ 1 ] [ 1 ] = 101
+define_elemento A [ 3 ] [ 3 ] = 102
+define_elemento A [ 7 ] [ 7 ] = 103
+define_elemento A [ 3 ] [ 5 ] = 104
+define_elemento A [ 7 ] [ 5 ] = 105
+define_elemento A [ 1 ] [ 9 ] = 106
+define_elemento A [ 9 ] [ 1 ] = 107
+define_elemento A [ 22 ] [ 22 ] = 108
+imprime A
+le_matriz B 100 100 5
+1 9 -106
+1 1 3000
+7 9 4000
+22 1 5000
+7 5 6000
+imprime B
+soma C = A + B
+imprime C
+imprime A
+imprime B

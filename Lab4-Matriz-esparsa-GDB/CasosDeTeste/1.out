@@ -1,0 +1,19 @@
+Inicializando matriz A[n_linhas=2][n_colunas=2].
+Inicializando matriz B[n_linhas=2][n_colunas=2].
+A=(nlin=2,ncol=2)
+B=(nlin=2,ncol=2)
+Definido A[1][1] = 100 .
+A=(nlin=2,ncol=2,[1,1]=100)
+B=(nlin=2,ncol=2)
+Definido B[0][1] = 200 .
+B=(nlin=2,ncol=2,[0,1]=200)
+A=(nlin=2,ncol=2,[1,1]=100)
+Definido A[1][0] = 300 .
+A=(nlin=2,ncol=2,[1,0]=300,[1,1]=100)
+B=(nlin=2,ncol=2,[0,1]=200)
+Definido B[0][0] = 400 .
+A=(nlin=2,ncol=2,[1,0]=300,[1,1]=100)
+B=(nlin=2,ncol=2,[0,0]=400,[0,1]=200)
+Definido A[1][0] = 500 .
+A=(nlin=2,ncol=2,[1,0]=500,[1,1]=100)
+B=(nlin=2,ncol=2,[0,0]=400,[0,1]=200)

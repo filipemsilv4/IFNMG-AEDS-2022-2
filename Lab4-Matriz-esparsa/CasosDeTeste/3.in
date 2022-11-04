@@ -1,0 +1,8 @@
+le_matriz A 2 2 4
+1 1 100
+0 1 200
+1 0 300
+0 0 400
+imprime A
+define_elemento A [ 1 ] [ 0 ] = 500
+imprime A

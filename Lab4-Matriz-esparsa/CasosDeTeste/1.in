@@ -1,0 +1,12 @@
+zera A 2 2
+imprime A
+define_elemento A [ 1 ] [ 1 ] = 100
+imprime A
+define_elemento A [ 0 ] [ 1 ] = 200
+imprime A
+define_elemento A [ 1 ] [ 0 ] = 300
+imprime A
+define_elemento A [ 0 ] [ 0 ] = 400
+imprime A
+define_elemento A [ 1 ] [ 0 ] = 500
+imprime A
