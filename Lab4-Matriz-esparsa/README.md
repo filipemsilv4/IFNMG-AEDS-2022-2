@@ -2,7 +2,7 @@
 
 Implemente com matriz esparsa (sem desperdício acima do proporcional ao número de elementos da matriz) as funções sobre matrizes esparsar descritas no arquivo .h.
 
-``
+```
   Matriz
 ___________
 | n_lin 1 |
@@ -27,4 +27,4 @@ ___________
               |                     |
               V                     V
          cab dos cab           cab das col
-``
+```
