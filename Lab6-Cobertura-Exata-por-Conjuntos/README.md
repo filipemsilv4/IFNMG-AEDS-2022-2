@@ -1,3 +1,5 @@
+# Lab06: Cobertura Exata por Conjuntos
+
 Dado um natural n, e uma coleção W de subconjuntos de
 S={0,1,2,...,n-1}, encontrar um Wlinha subcoleção de W, se existir,
 tal que cada elemento de S aparece em precisamente um dos conjuntos
@@ -51,5 +53,4 @@ A saída para a entrada do exemplo acima seria:
 3  0 2 4
 3  3 5 7
 2  1 6
-
 

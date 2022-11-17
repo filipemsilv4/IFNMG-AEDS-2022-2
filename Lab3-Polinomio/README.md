@@ -1,6 +1,4 @@
-Disciplina: BCC-0001 - Algoritmos e Estrutura de Dados I
-
-Prazo de Entrega: 10/09/2022 23:59:59 Aberto
+# Lab03: Polinomio
 
 Implemente um polinômio com lista circular duplamente ligada, onde cada nó representa um coeficiente não nulo de algum grau não negativo inteiro. Mantenha sempre a lista ordenada por grau.
 
