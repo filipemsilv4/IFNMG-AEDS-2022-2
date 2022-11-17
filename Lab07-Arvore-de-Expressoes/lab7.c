@@ -1,30 +1,135 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-#define COUNT 5
-#define MAX_ELEM 50
+#define COUNT 5     // Espaçamento usado na função print2DUtil
+#define MAX_ELEM 50 // Maximo de elementos lidos
 
 typedef struct node {
-    char val  ;
+    int  val  ;
     bool eh_op;
     struct node *filhoEsquerda;
     struct node *filhoDireita ;
-    struct node *acima         ;
+    struct node *acima        ;
 } No;
 
-No *alocaNo(char c, No* acima);
+// Protótipos
+bool isop(char c);
+No *alocaNo(int c, bool op);
 bool insereNaArvore(No *raiz, No *novono);
+void imprimePosFixada(No *raiz);
+void print2D(No* root);
+void print2DUtil(No* root, int space);
 
-//https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
-// Function to print binary tree in 2D
-// It does reverse inorder traversal
-void print2DUtil(No* root, int space){
-    // Base case
-    if (root == NULL)
+int main(void){
+    char expressao[MAX_ELEM]  ;
+    scanf("%[^\n]", expressao);
+
+    char *elemDaExpressao  = malloc(sizeof(char));
+    int   digitosDoNum     = 0;
+    int   posFinalDoNum    = 0;
+
+    // Alocar o No raiz
+    No *raiz;
+    int posDoPrimeiroElem  = 0;
+    for (int percorreExpressao = 0; percorreExpressao < strlen(expressao) + 1; ++percorreExpressao){
+        if (expressao[percorreExpressao] != ' '){
+            raiz = alocaNo(expressao[percorreExpressao], true);
+            break;
+        }
+        ++posDoPrimeiroElem;
+    }
+
+    // Percorre cada elemento da string
+    for (int percorreExpressao = posDoPrimeiroElem + 1; percorreExpressao < strlen(expressao) + 1; ++percorreExpressao){
+        // Se for operador:
+        if (isop(expressao[percorreExpressao]) == true){
+            insereNaArvore(raiz, alocaNo(expressao[percorreExpressao], true));
+        }
+        // Se for um número, é importante saber o tamanho da "sub-string" que o contém e onde ela termina
+        else if (isdigit(expressao[percorreExpressao]) != 0){
+            posFinalDoNum = percorreExpressao;
+            ++digitosDoNum;
+        }
+        // Entra nessa condição ao encontrar um espaço após dígito(s)
+        else if (((expressao[percorreExpressao] == ' ') || (expressao[percorreExpressao] == '\0')) && digitosDoNum != 0){
+            elemDaExpressao = realloc(elemDaExpressao, digitosDoNum + 1);
+            // Coloca o numero em uma string
+            int countNormal = 0;
+            for (int countInverso = digitosDoNum - 1; countInverso >= 0 ; --countInverso){
+                elemDaExpressao[countInverso] = expressao[posFinalDoNum - countNormal];
+                ++countNormal;
+            }
+            elemDaExpressao[digitosDoNum] = '\0';  // Finaliza a string com o numero
+            insereNaArvore(raiz, alocaNo(atoi(elemDaExpressao), false));
+            digitosDoNum = 0;
+        }
+    }
+
+    //print2D(raiz);
+
+    imprimePosFixada(raiz);
+
+    printf("\n");
+}
+
+bool isop(char c){
+    if (c == '%' || c == '/' || c == '*' || c == '+' || c == '-' || c == '^'){ return true; }
+    return false;
+}
+
+No *alocaNo(int c, bool op){
+    No *novono = malloc(sizeof(No));
+
+    novono->val    = c   ;
+    novono->eh_op  = op  ;
+    novono->acima  = novono->filhoEsquerda = novono->filhoDireita  = NULL;
+
+    return novono;
+}
+
+bool insereNaArvore(No *raiz, No *novono){
+    // Se não houver nada na esquerda, tenta inserir
+    if (raiz->filhoEsquerda == NULL){
+        novono->acima       =  raiz  ;
+        raiz->filhoEsquerda =  novono;
+        return true;
+    } else if (raiz->filhoEsquerda->eh_op == true){  // Se houver operador na posição, chama recursivamente passando o op como raiz
+        if (insereNaArvore(raiz->filhoEsquerda, novono) == true){ return true; }
+    }
+    
+    // Se não houver nada na direita, tenta inserir
+    if ((raiz->filhoDireita == NULL)){
+        novono->acima       =  raiz  ;
+        raiz->filhoDireita  =  novono;
+        return true;
+    } else if (raiz->filhoDireita->eh_op == true){ // Se houver operador na posição, chama recursivamente passando o op como raiz
+        if (insereNaArvore(raiz->filhoDireita, novono) == true){ return true; }
+    }
+
+    return false;
+}
+
+void imprimePosFixada(No *raiz){
+    if (raiz->eh_op == true){
+        imprimePosFixada(raiz->filhoEsquerda);
+        imprimePosFixada(raiz->filhoDireita) ;
+        printf("%c ", (char)raiz->val);
+    } else {
+        printf("%i ", raiz->val);
         return;
+    }
+
+    return;
+}
+
+void print2DUtil(No* root, int space){
+    // Function to print binary tree in 2D. It does reverse inorder traversal
+    // fonte: <https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/> (há alterações)
+    // Base case
+    if (root == NULL){ return; }
  
     // Increase distance between levels
     space += COUNT;
@@ -34,88 +139,16 @@ void print2DUtil(No* root, int space){
  
     // Print current node after space
     // count
-    for (int i = COUNT; i < space; i++)
-        printf(" ");
-    printf("%c\n", root->val);
+    for (int i = COUNT; i < space; i++){ printf(" "); }
+    if (root->eh_op == true){ printf("%c\n", (char)root->val); }
+    else { printf("%i\n", root->val); }
  
     // Process left child
     print2DUtil(root->filhoEsquerda, space);
 }
-// Wrapper over print2DUtil()
 void print2D(No* root){
+    // Wrapper over print2DUtil()
+    // fonte: <https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/>
     // Pass initial space count as 0
     print2DUtil(root, 0);
-}
-
-
-int main(void){
-    char *expressao = calloc(MAX_ELEM , sizeof(char));
-    int pos = 0;
-
-    char c;
-    while ((c = getchar()) != EOF){
-        if (c != ' '){
-            expressao[pos] = c;
-            ++pos;
-        }
-        if (c == '\n'){
-            expressao[pos - 1] = '\0';
-            break;
-        }
-    }
-
-    if (realloc(expressao, (strlen(expressao) + 1)) == NULL){ return -1; }
-
-    // No raiz
-    No *raiz = alocaNo(expressao[0], NULL);
-    for (int i = 1; i < strlen(expressao); ++i){
-        insereNaArvore(raiz, alocaNo(expressao[i], NULL));
-    }
-
-    print2D(raiz);
-
-}
-
-No *alocaNo(char c, No* acima){
-    No *novono = malloc(sizeof(No));
-
-    novono->val    = c    ;
-    novono->acima  = acima;
-    novono->filhoEsquerda = NULL;
-    novono->filhoDireita  = NULL;
-
-    if (isdigit(c) != 0){ novono->eh_op = false; }  // isdigit retorna !0 se for digito
-    else                { novono->eh_op = true;  }
-
-    return novono;
-}
-
-bool insereNaArvore(No *raiz, No *novono){
-    // &
-    // Tentar inserir à esquerda
-    //  Se houver op, goto &
-    //  Se nao houver nada, insere, return true;
-    // Tentar inserir à direita
-    //  Se houver op, goto &
-    //  Se não houver nada, insere, return true;
-    // Return false;
-    bool sucesso = true;
-
-    if (raiz->filhoEsquerda == NULL){
-        novono->acima       =  raiz  ;
-        raiz->filhoEsquerda =  novono;
-        return true;
-    } else if (raiz->filhoEsquerda->eh_op == true){
-        sucesso = insereNaArvore(raiz->filhoEsquerda, novono);
-        if (sucesso == true){ return true; }
-    }
-    
-    if ((raiz->filhoDireita == NULL)){
-        novono->acima      = raiz  ;
-        raiz->filhoDireita = novono;
-        return true;
-    } else if (raiz->filhoDireita->eh_op == true){
-        if (insereNaArvore(raiz->filhoDireita, novono) == true){ return true; }
-    }
-    return false;
 }
