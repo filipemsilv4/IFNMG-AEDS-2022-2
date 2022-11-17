@@ -28,3 +28,5 @@ ___________
               V                     V
          cab dos cab           cab das col
 ```
+
+<img src="desenho.jpg" width=100%>
