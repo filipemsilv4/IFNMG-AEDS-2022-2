@@ -17,9 +17,9 @@ typedef struct node {
 
 // Protótipos
 bool isop(char c);
-No *alocaNo(int c, bool op);
+No  *alocaNo(int c, bool op);
 bool insereNaArvore(No *raiz, No *novono);
-void imprimePosFixada(No *raiz);
+int  imprimePosFixada(No *raiz);
 void print2D(No* root);
 void print2DUtil(No* root, int space);
 
@@ -70,9 +70,7 @@ int main(void){
 
     //print2D(raiz);
 
-    imprimePosFixada(raiz);
-
-    printf("\n");
+    printf("\n%i\n", imprimePosFixada(raiz));
 }
 
 bool isop(char c){
@@ -112,17 +110,34 @@ bool insereNaArvore(No *raiz, No *novono){
     return false;
 }
 
-void imprimePosFixada(No *raiz){
+int opera(int a, int b, char op){
+    int res = 0;
+    switch(op) {
+        case '+': res = a + b; break;
+        case '-': res = a - b; break;
+        case '*': res = a * b; break;
+        case '%': res = a % b; break;
+        case '/': res = a / b; break;
+        case '^': res = a ^ b; break;
+        default: break;
+    }
+    return res;
+}
+
+int imprimePosFixada(No *raiz){
+    int result = 0;
+
     if (raiz->eh_op == true){
-        imprimePosFixada(raiz->filhoEsquerda);
-        imprimePosFixada(raiz->filhoDireita) ;
+        int esquerda = imprimePosFixada(raiz->filhoEsquerda);
+        int direita  = imprimePosFixada(raiz->filhoDireita) ;
+        result       = opera(esquerda, direita, (char)raiz->val);
         printf("%c ", (char)raiz->val);
     } else {
         printf("%i ", raiz->val);
-        return;
+        return raiz->val;
     }
 
-    return;
+    return result;
 }
 
 void print2DUtil(No* root, int space){
